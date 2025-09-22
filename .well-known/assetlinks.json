@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.netlify.gtavictndwnpage.twa",
+        "sha256_cert_fingerprints": ["CC:99:4B:0A:62:73:1E:E0:3A:65:5C:01:38:0C:51:BA:C7:2D:7F:E7:45:10:B2:98:11:34:AF:3A:9A:0F:07:51"]
+      }
+    }]
