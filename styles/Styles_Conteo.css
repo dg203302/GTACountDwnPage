@@ -123,5 +123,5 @@ h1 {
 
 @media (max-width: 520px) {
 	#Conteo { padding: 1rem; }
-	#Barra_de_opciones a { padding: 0.40rem 0.5rem; }
+	#Barra_de_opciones a { padding: 0.25rem 0.4rem; }
 }
