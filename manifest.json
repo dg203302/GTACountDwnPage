@@ -462,5 +462,19 @@
       "src": "ios/1024.png",
       "sizes": "1024x1024"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "Screenshots/Screenshot_20250921_225841_Brave.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "Screenshots/Screenshot_20250921_225846_Brave.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "Screenshots/Screenshot_20250921_225854_Brave.jpg",
+      "type": "image/jpeg"
+    }
   ]
 }
