@@ -134,6 +134,12 @@ h1 {
 }
 
 #credits {
+	display: flex;
+	justify-content: center;
+	flex-direction: center;
+	text-align: center;
+}
+#credits a {
 	margin: 0;
 	padding: 0.75rem 1rem;
 	text-align: center;

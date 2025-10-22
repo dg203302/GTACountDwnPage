@@ -130,6 +130,12 @@ h1 {
 #Linea_Tiempo h4 { color: var(--text-dim); margin-top: 1.5rem; text-align: center; }
 
 #credits {
+	display: flex;
+	justify-content: center;
+	flex-direction: center;
+	text-align: center;
+}
+#credits a {
 	margin: 0;
 	padding: 0.75rem 1rem;
 	text-align: center;
