@@ -1,25 +1,49 @@
-const release_date = "26/06/2026";
+const release_date = "19/11/2026";
+
+function computeRemaining(target){
+    const now = new Date();
+    const diffMs = target - now;
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const months = (target.getFullYear() - now.getFullYear()) * 12 + (target.getMonth() - now.getMonth());
+    return { days, hours, months, diffMs };
+}
+
+function pluralize(value, singular, plural){
+    return value === 1 ? singular : plural;
+}
+
 function updateClock(){
     const elHours = document.getElementById("Horas");
     const elDays = document.getElementById("Dias");
     const elMonths = document.getElementById("Meses");
-    const now = new Date();
-    const parts = release_date.split("/");
-    const day = parseInt(parts[0]);
-    const month = parseInt(parts[1]) - 1; // zero-based
-    const year = parseInt(parts[2]);
+    if (!elHours || !elDays || !elMonths) return;
 
-    const target = new Date(year, month, day);
-    const diffMs = target - now;
+    const [d, m, y] = release_date.split("/").map(p => parseInt(p, 10));
+    const target = new Date(y, m - 1, d);
+    const { days, hours, months, diffMs } = computeRemaining(target);
 
-    const daysRemaining = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    const hoursRemaining = Math.floor(diffMs / (1000 * 60 * 60));
-    const monthsRemaining = (year - now.getFullYear()) * 12 + (month - now.getMonth());
+    // If past release date, freeze at zero
+    const safeDays = days < 0 ? 0 : days;
+    const safeHours = hours < 0 ? 0 : hours;
+    const safeMonths = months < 0 ? 0 : months;
 
-    if (elHours) elHours.textContent = hoursRemaining + " Hours";
-    if (elDays) elDays.textContent = daysRemaining + " Days";
-    if (elMonths) elMonths.textContent = monthsRemaining + " Months";
+    const lang = localStorage.getItem('language') === 'spanish' ? 'spanish' : 'english';
+    if (lang === 'spanish'){
+        elHours.textContent = `${safeHours} ${pluralize(safeHours, 'Hora', 'Horas')}`;
+        elDays.textContent = `${safeDays} ${pluralize(safeDays, 'Día', 'Días')}`;
+        elMonths.textContent = `${safeMonths} ${pluralize(safeMonths, 'Mes', 'Meses')}`;
+    } else {
+        elHours.textContent = `${safeHours} ${pluralize(safeHours, 'Hour', 'Hours')}`;
+        elDays.textContent = `${safeDays} ${pluralize(safeDays, 'Day', 'Days')}`;
+        elMonths.textContent = `${safeMonths} ${pluralize(safeMonths, 'Month', 'Months')}`;
+    }
 }
-window.onload = function(){
+
+window.addEventListener('load', () => {
+    updateClock();
     setInterval(updateClock, 1000);
-}
+});
+
+// Re-render countdown labels immediately after language change
+window.addEventListener('languagechange', updateClock);

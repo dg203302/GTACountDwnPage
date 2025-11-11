@@ -16,6 +16,17 @@
 	--shadow: 0 10px 30px rgba(0,0,0,0.45);
 }
 
+/* Light theme overrides */
+:root.theme-light {
+	--bg-purple: #f6f3ff;
+	--text-light: #1b102e;
+	--text-dim: #2b1f49;
+	--overlay-from: rgba(255, 255, 255, 0.65);
+	--overlay-to: rgba(246, 243, 255, 0.55);
+	--glass-bg: rgba(255, 255, 255, 0.55);
+	--glass-border: rgba(0, 0, 0, 0.12);
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -32,7 +43,7 @@ body {
 	/* Background image with gradient overlay for legibility */
 	background-image:
 		linear-gradient(135deg, var(--overlay-from), var(--overlay-to)),
-		url('../images/maxresdefault.jpg');
+		url('../images/77PIBVXLYZCUFFIQ6FRH6CNTSY.avif');
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -124,6 +135,60 @@ h1:nth-of-type(2) {
 	outline-offset: 3px;
 }
 
+/* Languages and theme toggle */
+#languages {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem 0.75rem;
+	margin-top: 0.75rem;
+}
+
+#languages h3 {
+	margin: 0 0.25rem 0 0;
+	font-weight: 700;
+	color: var(--text-dim);
+}
+
+#languages a,
+#languages button {
+	appearance: none;
+	border: 1px solid var(--glass-border);
+	background: linear-gradient(180deg, var(--glass-bg), rgba(255,255,255,0.02));
+	color: var(--text-light);
+	font-weight: 700;
+	letter-spacing: 0.3px;
+	padding: 0.55rem 0.9rem;
+	border-radius: 999px;
+	cursor: pointer;
+	text-decoration: none;
+	box-shadow: var(--shadow);
+	backdrop-filter: blur(6px) saturate(120%);
+	transition: transform 0.15s ease, color 0.15s ease, background 0.15s ease;
+	position: relative;
+}
+
+#languages a::before,
+#languages button::before {
+	content: "";
+	position: absolute;
+	inset: -2px;
+	z-index: -1;
+	border-radius: 1000px;
+	background: linear-gradient(90deg, var(--primary-purple), var(--magenta));
+	opacity: 0.6;
+	filter: blur(10px);
+	transition: opacity 0.2s ease;
+}
+
+#languages a:hover,
+#languages button:hover { transform: translateY(-2px); color: #fff; }
+#languages a:hover::before,
+#languages button:hover::before { opacity: 1; }
+#languages a:focus-visible,
+#languages button:focus-visible { outline: 3px solid var(--magenta); outline-offset: 3px; }
+
 /* Credits footer */
 #credits {
 	display: flex;
@@ -147,4 +212,6 @@ h1:nth-of-type(2) {
 		padding: 0.6rem 0.9rem;
 		font-weight: 600;
 	}
+	#languages { gap: 0.45rem 0.6rem; }
+	#languages a, #languages button { padding: 0.5rem 0.8rem; }
 }

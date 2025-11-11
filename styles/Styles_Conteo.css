@@ -14,6 +14,17 @@
 	--shadow: 0 10px 30px rgba(0,0,0,0.45);
 }
 
+/* Light theme overrides */
+:root.theme-light {
+	--bg-deep: #f6f3ff;
+	--text: #1b102e;
+	--text-dim: #2b1f49;
+	--panel-bg: rgba(255, 255, 255, 0.55);
+	--panel-border: rgba(0, 0, 0, 0.12);
+	--overlay-a: rgba(255, 255, 255, 0.55);
+	--overlay-b: rgba(246, 243, 255, 0.45);
+}
+
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 

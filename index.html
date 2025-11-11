@@ -15,16 +15,28 @@
 </head>
 <body>
     <div id="contenido">
-        <h1>GTA VI Fan App</h1>
-        <h1> Grand Theft Auto VI Release Date:<br>26/06/2026</h1>
+        <h1 data-i18n="home.title">GTA VI Fan App</h1>
+        <h1 data-i18n="home.release"> Grand Theft Auto VI Release Date:<br>19/11/2026</h1>
         <div id="Barra_de_opciones">
-            <a href="templates/Conteo.html">Countdown</a>
-            <a href="templates/Trailers.html">Trailers</a>
-            <a href="templates/Info.html">Information</a>
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="templates/Conteo.html" data-i18n="nav.countdown">Countdown</a>
+            <a href="templates/Trailers.html" data-i18n="nav.trailers">Trailers</a>
+            <a href="templates/Info.html" data-i18n="nav.info">Information</a>
+        </div>
+        <div id="languages">
+            <h3 data-i18n="lang.prompt">Select Language</h3>
+            <a href="#" id="btnEsp" data-i18n="lang.es">Spanish</a>
+            <a href="#" id="btnEng" data-i18n="lang.en">English</a>
+            <button id="themeToggle" type="button" aria-pressed="false" data-i18n="theme.toDark">Dark mode</button>
         </div>
     </div>
-    <div id="credits">
+    <div id="credits" data-i18n="credits.text">
         <a href="https://github.com/dg203302">&copy; Dg203302 - 2025</a>
     </div>
+    <script>
+      document.getElementById('btnEsp').addEventListener('click', e => { e.preventDefault(); window.setLanguage('spanish'); });
+      document.getElementById('btnEng').addEventListener('click', e => { e.preventDefault(); window.setLanguage('english'); });
+    </script>
+    <script src="scripts/i18n.js" defer></script>
 </body>
 </html>
