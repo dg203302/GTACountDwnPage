@@ -13,6 +13,7 @@
       'nav.countdown': 'Countdown',
       'nav.trailers': 'Trailers',
       'nav.info': 'Information',
+      'nav.forum': 'Forum',
       'credits.text': '© Dg203302 - 2025',
       'theme.toDark': 'Dark mode',
       'theme.toLight': 'Light mode',
@@ -22,6 +23,7 @@
       'nav.countdown': 'Cuenta regresiva',
       'nav.trailers': 'Tráilers',
       'nav.info': 'Información',
+      'nav.forum': 'Foro',
       'credits.text': '© Dg203302 - 2025',
       'theme.toDark': 'Modo oscuro',
       'theme.toLight': 'Modo claro',
@@ -40,7 +42,7 @@
           'lang.en': 'English'
         },
         spanish: {
-          'home.title': 'App de Fans de GTA VI',
+          'home.title': 'App Fan de GTA VI',
           'home.release': `Fecha de lanzamiento de Grand Theft Auto VI:<br>${RELEASE_DATE}`,
           'lang.prompt': 'Seleccione el idioma',
           'lang.es': 'Español',
@@ -75,6 +77,18 @@
           'trailers.title': 'Tráilers de GTA VI',
           'trailers.caption1': 'Tráiler 1 <br>Publicado: 4/12/2023',
           'trailers.caption2': 'Tráiler 2 <br>Publicado: 6/6/2025'
+        }
+      };
+    }
+    if (path.endsWith('/templates/foro.html')) {
+      return {
+        english: {
+          'forum.title': 'GTA VI Forum',
+          'forum.comingSoon': 'Forum functionality coming soon!'
+        },
+        spanish: {
+          'forum.title': 'Foro de GTA VI',
+          'forum.comingSoon': '¡La funcionalidad del foro llegará pronto!'
         }
       };
     }
