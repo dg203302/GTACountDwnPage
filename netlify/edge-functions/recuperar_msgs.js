@@ -1,4 +1,4 @@
-import { neon } from '@netlify/neon';
+import { neon } from 'https://deno.land/x/netlify_neon@0.1.0/mod.ts';
 export default async (request, context) => {
     const sql = neon();
     const [msgs] = await sql`SELECT * FROM mensaje_usuarios`;
