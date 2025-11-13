@@ -20,10 +20,14 @@
         <a href="foro.html" data-i18n="nav.forum">Forum</a>
     </div>
     <div id="forum_container">
-        <p data-i18n="forum.messages">Loading...</p>
+        <div class="forum_header">
+            <h2 data-i18n="forum.messagesHeading">Messages</h2>
+            <button id="btnRefresh" type="button" data-i18n="forum.refresh">Refresh</button>
+        </div>
+        <div data-i18n="forum.loading" id="mensajes">Loading...</div>
         <div class="accion_usuario">
-            <input type="text" placeholder="Your Message Here" data-i18n-placeholder="forum.placeholder">
-            <button type="button" data-i18n="forum.send">Send</button>
+            <input type="text" placeholder="Your Message Here" data-i18n-placeholder="forum.placeholder" id="input_enviar_msg">
+            <button type="button" data-i18n="forum.send" onclick="enviarMSG()">Send</button>
         </div>
     </div>
     <div id="credits">

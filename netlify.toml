@@ -1,3 +1,7 @@
 [[edge_functions]]
   function = "recuperar_msgs" 
   path = "/api/obtener_mensajes"
+  
+[[edge_functions]]
+  function = "enviar_msgs"
+  path = "/api/enviar_mensaje"

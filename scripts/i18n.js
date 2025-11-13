@@ -84,11 +84,19 @@
       return {
         english: {
           'forum.title': 'GTA VI Forum',
-          'forum.comingSoon': 'Forum functionality coming soon!'
+          'forum.loading': 'Loading...',
+          'forum.messagesHeading': 'Messages',
+          'forum.refresh': 'Refresh',
+          'forum.placeholder': 'Your Message Here',
+          'forum.send': 'Send'
         },
         spanish: {
           'forum.title': 'Foro de GTA VI',
-          'forum.comingSoon': '¡La funcionalidad del foro llegará pronto!'
+          'forum.loading': 'Cargando...',
+          'forum.messagesHeading': 'Mensajes',
+          'forum.refresh': 'Actualizar',
+          'forum.placeholder': 'Escribe tu mensaje aquí',
+          'forum.send': 'Enviar'
         }
       };
     }
@@ -380,6 +388,13 @@
       const key = el.dataset.i18n;
       const val = dict[key];
       if (val && el.innerHTML !== val) el.innerHTML = val;
+    });
+    // Handle placeholder translations
+    const placeholders = document.querySelectorAll('[data-i18n-placeholder]');
+    placeholders.forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const val = dict[key];
+      if (val && el.placeholder !== val) el.placeholder = val;
     });
     // After language strings update, ensure theme toggle label matches current theme
     const theme = localStorage.getItem('theme') || 'dark';
