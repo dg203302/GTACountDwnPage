@@ -1,11 +1,22 @@
-import { neon } from 'https://deno.land/x/netlify_neon@0.1.0/mod.ts';
+import { neon } from "https://esm.sh/@neondatabase/serverless";
+
 export default async (request, context) => {
-    const sql = neon();
-    const [msgs] = await sql`SELECT * FROM mensaje_usuarios`;
-    if (!msgs) {
-        return new Response('Post not found', { status: 404 });
+    try {
+        const sql = neon(Deno.env.get("NETLIFY_DATABASE_URL"));
+        const msgs = await sql`SELECT * FROM mensaje_usuarios`;
+
+        if (!msgs || msgs.length === 0) {
+            return new Response('No messages found', { status: 404 });
+        }
+
+        return new Response(JSON.stringify(msgs), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+        });
+    } catch (err) {
+        return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
-    return new Response(JSON.stringify(msgs), {
-        headers: { 'Content-Type': 'application/json' },status: 200,
-    });
-}
+};
