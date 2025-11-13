@@ -11,19 +11,25 @@
      
 </head>
 <body>
+    <h1 data-i18n="forum.title">GTA VI Forum</h1>
     <div id="Barra_de_opciones">
         <a href="../Index.html" data-i18n="nav.home">Homepage</a>
+        <a href="Conteo.html" data-i18n="nav.countdown">Countdown</a>
         <a href="Trailers.html" data-i18n="nav.trailers">Trailers</a>
         <a href="Info.html" data-i18n="nav.info">Information</a>
         <a href="foro.html" data-i18n="nav.forum">Forum</a>
     </div>
-    <h1 data-i18n="forum.title">GTA VI Forum</h1>
     <div id="forum_container">
-        <p data-i18n="forum.comingSoon">Forum functionality coming soon!</p>
+        <p data-i18n="forum.messages">Loading...</p>
+        <div class="accion_usuario">
+            <input type="text" placeholder="Your Message Here" data-i18n-placeholder="forum.placeholder">
+            <button type="button" data-i18n="forum.send">Send</button>
+        </div>
     </div>
     <div id="credits">
         <a href="https://github.com/dg203302">&copy; Dg203302 - 2025</a>
     </div>
     <script src="../scripts/i18n.js" defer></script>
+    <script src="../scripts/script_foro.js" type="module" defer></script>
 </body>
 </html>

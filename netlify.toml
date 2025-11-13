@@ -1,0 +1,3 @@
+[[edge_functions]]
+  function = "recuperar_msgs" 
+  path = "/api/obtener_mensajes"
