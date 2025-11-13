@@ -6,50 +6,36 @@
   "orientation": "portrait",
   "scope": "/",
   "short_name": "gtvictndwnpage",
-  "start_url": "https://gtavictndwnpage.netlify.app/",
+  "start_url": "https://gtvicountdown.netlify.app/",
   "theme_color": "#6e00a5",
   "description": "A GTA VI Countdown app",
   "lang": "en",
   "display_override": [
     "window-controls-overlay"
   ],
-  "screenshots": [
-    {
-      "src": "Screenshots/Screenshot_20250921_225841_Brave.jpg",
-      "type": "image/jpeg"
-    },
-    {
-      "src": "Screenshots/Screenshot_20250921_225846_Brave.jpg",
-      "type": "image/jpeg"
-    },
-    {
-      "src": "Screenshots/Screenshot_20250921_225854_Brave.jpg",
-      "type": "image/jpeg"
-    }
-  ],
   "icons": [
     {
-      "src": "Icons/android-launchericon-512-512.png",
+      "src": "/Icons/android-launchericon-512-512.png",
       "sizes": "512x512"
     },
     {
-      "src": "Icons/android-launchericon-192-192.png",
+      "src": "/Icons/android-launchericon-192-192.png",
       "sizes": "192x192"
     },
     {
-      "src": "Icons/android-launchericon-144-144.png",
+      "src": "/Icons/android-launchericon-144-144.png",
       "sizes": "144x144"
     },
     {
-      "src": "Icons/android-launchericon-96-96.png",
+      "src": "/Icons/android-launchericon-96-96.png",
       "sizes": "96x96"
     },
     {
-      "src": "Icons/android-launchericon-72-72.png",
+      "src": "/Icons/android-launchericon-72-72.png",
       "sizes": "72x72"
     },
     {
-      "src": "Icons/android-launchericon-48-48.png",
+      "src": "/Icons/android-launchericon-48-48.png",
       "sizes": "48x48"
     }
   ]
