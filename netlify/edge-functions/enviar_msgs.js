@@ -1,76 +1,56 @@
 import { neon } from "https://esm.sh/@neondatabase/serverless";
 
-const CORS_HEADERS = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
-};
-
 export default async function handler(request, context) {
-    // Handle CORS preflight
-    if (request.method === 'OPTIONS') {
-        return new Response(null, { status: 204, headers: CORS_HEADERS });
-    }
-
-    if (request.method !== 'POST') {
-        return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
-            status: 405,
-            headers: CORS_HEADERS
+    if (request.method === "OPTIONS") {
+        return new Response(null, {
+            status: 204,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "POST, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type"
+            }
         });
     }
 
-    const dbUrl = Deno.env.get("NETLIFY_DATABASE_URL");
-    if (!dbUrl) {
-        return new Response(JSON.stringify({ error: "Database configuration missing" }), {
-            status: 500,
-            headers: CORS_HEADERS
-        });
+    if (request.method !== "POST") {
+        return new Response("Method Not Allowed", { status: 405 });
     }
 
-    const sql = neon(dbUrl);
+    const sql = neon(Deno.env.get("NETLIFY_DATABASE_URL"));
 
     try {
-        let body;
-        try {
-            body = await request.json();
-        } catch (_) {
-            return new Response(JSON.stringify({ error: "Invalid JSON body" }), { status: 400, headers: CORS_HEADERS });
-        }
-
+        const body = await request.json();
         const { mensaje_enviado } = body ?? {};
-        if (typeof mensaje_enviado !== 'string') {
+
+        if (!mensaje_enviado || typeof mensaje_enviado !== "string") {
             return new Response(
-                JSON.stringify({ error: "Invalid input: 'mensaje_enviado' must be a string." }),
-                { status: 400, headers: CORS_HEADERS }
+                JSON.stringify({ error: "Invalid message" }),
+                { status: 400 }
             );
         }
 
         const text = mensaje_enviado.trim();
-        if (text.length < 3) {
-            return new Response(
-                JSON.stringify({ error: "Message too short. Minimum 3 characters." }),
-                { status: 400, headers: CORS_HEADERS }
-            );
-        }
-        if (text.length > 500) {
-            return new Response(
-                JSON.stringify({ error: "Message too long. Maximum 500 characters." }),
-                { status: 400, headers: CORS_HEADERS }
-            );
-        }
 
-        const result = await sql`INSERT INTO mensaje_usuarios (mensaje_enviado) VALUES (${text}) RETURNING *`;
-        const row = Array.isArray(result) ? result[0] : result;
+        const [row] = await sql`
+            INSERT INTO mensaje_usuarios (mensaje_enviado)
+            VALUES (${text})
+            RETURNING *
+        `;
 
         return new Response(JSON.stringify(row), {
             status: 201,
-            headers: CORS_HEADERS
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
         });
-    } catch (error) {
-        return new Response(
-            JSON.stringify({ error: "Internal Server Error" }),
-            { status: 500, headers: CORS_HEADERS }
-        );
+    } catch (err) {
+        return new Response(JSON.stringify({ error: "Internal error" }), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
     }
 }
