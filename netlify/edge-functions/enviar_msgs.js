@@ -5,17 +5,38 @@ export default async function handler(request, context) {
     const sql = neon(Deno.env.get("NETLIFY_DATABASE_URL"));
 
     try {
-        const body = await request.json();
+        if (request.method !== 'POST') {
+            return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+                status: 405,
+                headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            });
+        }
+
+        let body;
+        try {
+            body = await request.json();
+        } catch (_) {
+            return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+                status: 400,
+                headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            });
+        }
         const { mensaje_enviado } = body ?? {};
 
         if (!mensaje_enviado || typeof mensaje_enviado !== "string") {
-            return new Response(
-                JSON.stringify({ error: "Invalid message" }),
-                { status: 400 }
-            );
+            return new Response(JSON.stringify({ error: "Invalid message" }), {
+                status: 400,
+                headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            });
         }
 
         const text = mensaje_enviado.trim();
+        if (!text) {
+            return new Response(JSON.stringify({ error: "Empty message" }), {
+                status: 400,
+                headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            });
+        }
 
         const [row] = await sql`
             INSERT INTO mensaje_usuarios (mensaje_enviado)
