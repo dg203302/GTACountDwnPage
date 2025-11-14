@@ -50,7 +50,32 @@ async function renderizarMensajes(mensajes){
     const contenedor = document.getElementById('mensajes');
     if (!contenedor) return;
     contenedor.innerHTML = '';
-    mensajes.forEach(msg => {
+    // Ordenar por fecha de creación (más reciente primero)
+    const toDate = (f) => {
+        if (!f) return new Date(0);
+        const s = String(f).trim();
+        const re = /^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})(\.(\d+))?([+-]\d{2}:?\d{2}|Z|[+-]\d{2})?$/;
+        let iso = null;
+        const m = s.match(re);
+        if (m) {
+            const datePart = m[1];
+            const timePart = m[2];
+            const frac = (m[4] || '').slice(0, 3).padEnd(3, '0');
+            let offset = m[5] || 'Z';
+            if (offset === '+00' || offset === '+0000' || offset === '+00:00') offset = 'Z';
+            else if (/^[+-]\d{2}$/.test(offset)) offset = offset + ':00';
+            else if (/^[+-]\d{4}$/.test(offset)) offset = offset.slice(0, 3) + ':' + offset.slice(3);
+            iso = `${datePart}T${timePart}${frac ? '.' + frac : ''}${offset}`;
+        }
+        const d = iso ? new Date(iso) : new Date(s.replace(' ', 'T'));
+        return isNaN(d) ? new Date(0) : d;
+    };
+
+    const ordenados = Array.isArray(mensajes)
+        ? mensajes.slice().sort((a, b) => toDate(b.F_creacion) - toDate(a.F_creacion))
+        : [];
+
+    ordenados.forEach(msg => {
         const p = document.createElement('p');
         p.className = 'mensaje';
         p.textContent = formatearFecha(msg.F_creacion) + ' - ' + msg.mensaje_enviado;
@@ -60,7 +85,7 @@ async function renderizarMensajes(mensajes){
     const first = contenedor.querySelector('.mensaje');
     if (first){
         const h = first.getBoundingClientRect().height;
-        contenedor.style.maxHeight = (h * 8 + 4) + 'px';
+        contenedor.style.maxHeight = (h * 6 + 4) + 'px';
     }
 }
 
@@ -103,12 +128,13 @@ async function enviarMSG(){
             btnSend.setAttribute('aria-busy','true');
             btnSend.disabled = true;
         }
-        const res = await fetch('/api/enviar_mensaje', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+
+        const res = await fetch("/api/enviar_mensaje", {
+            method: "POST",
+            headers: {"content-type": "application/json"},
             body: JSON.stringify({ mensaje_enviado: text })
-        });
-        if (!res.ok) throw new Error('Failed');
+        })
+
         input.value = '';
         await cargarMensajes();
     } catch (e){

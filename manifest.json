@@ -1,5 +1,5 @@
 {
-  "background_color": "#ce04eb",
+  "background_color": "#B19CD9",
   "dir": "ltr",
   "display": "standalone",
   "name": "Grand Theft Countdown",
@@ -7,8 +7,8 @@
   "scope": "/",
   "short_name": "grand theft countdown",
   "start_url": "https://gtvicountdown.netlify.app/",
-  "theme_color": "#6e00a5",
-  "description": "A GTA VI Countdown app",
+  "theme_color": "#B19CD9",
+  "description": "A Grand Theft VI Countdown app",
   "lang": "en",
   "display_override": [
     "window-controls-overlay"
