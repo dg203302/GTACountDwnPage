@@ -33,16 +33,35 @@ window.onload = function() {
     cargarMensajes();
     const btn = document.getElementById('btnRefresh');
     if (btn) btn.addEventListener('click', cargarMensajes);
+    const input = document.getElementById('input_enviar_msg');
+    const btnSend = document.querySelector('.accion_usuario button[data-i18n="forum.send"]');
+    function updateSendState(){
+        if (!input || !btnSend) return;
+        const len = input.value.trim().length;
+        btnSend.disabled = len < 3; // require 3+ chars
+    }
+    if (input){
+        input.addEventListener('input', updateSendState);
+        updateSendState();
+    }
 }
 
 async function renderizarMensajes(mensajes){
     const contenedor = document.getElementById('mensajes');
+    if (!contenedor) return;
     contenedor.innerHTML = '';
     mensajes.forEach(msg => {
         const p = document.createElement('p');
-        p.textContent = formatearFecha(msg.F_creacion) + " - " + msg.mensaje_enviado;
+        p.className = 'mensaje';
+        p.textContent = formatearFecha(msg.F_creacion) + ' - ' + msg.mensaje_enviado;
         contenedor.appendChild(p);
     });
+    // Ajustar altura máxima para mostrar hasta 8 mensajes sin scroll visible
+    const first = contenedor.querySelector('.mensaje');
+    if (first){
+        const h = first.getBoundingClientRect().height;
+        contenedor.style.maxHeight = (h * 8 + 4) + 'px';
+    }
 }
 
 function formatearFecha(fecha) {
@@ -72,7 +91,12 @@ async function enviarMSG(){
     const btnSend = document.querySelector('.accion_usuario button[data-i18n="forum.send"]');
     const input = document.getElementById('input_enviar_msg');
     const lang = (typeof localStorage !== 'undefined' && localStorage.getItem('language') === 'spanish') ? 'spanish' : 'english';
-    if (!input || !input.value.trim()) return;
+    if (!input) return;
+    const text = input.value.trim();
+    if (text.length < 3){
+        alert(lang === 'spanish' ? 'Escribe al menos 3 caracteres' : 'Type at least 3 characters');
+        return;
+    }
     try{
         if (btnSend){
             btnSend.classList.add('loading');
@@ -81,8 +105,8 @@ async function enviarMSG(){
         }
         const res = await fetch('/api/enviar_mensaje', {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ mensaje_enviado: input.value.trim() })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mensaje_enviado: text })
         });
         if (!res.ok) throw new Error('Failed');
         input.value = '';
@@ -94,7 +118,7 @@ async function enviarMSG(){
         if (btnSend){
             btnSend.classList.remove('loading');
             btnSend.removeAttribute('aria-busy');
-            btnSend.disabled = false;
+            btnSend.disabled = !input || input.value.trim().length < 3;
         }
     }
 }
