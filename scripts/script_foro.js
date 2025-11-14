@@ -84,7 +84,6 @@ function formatearFecha(fecha) {
 async function enviarMSG(){
     const btnSend = document.querySelector('.accion_usuario button[data-i18n="forum.send"]');
     const input = document.getElementById('input_enviar_msg');
-    const lang = (typeof localStorage !== 'undefined' && localStorage.getItem('language') === 'spanish') ? 'spanish' : 'english';
     if (!input) return;
     const text = input.value.trim();
     if (text.length < 3){
@@ -112,7 +111,6 @@ async function enviarMSG(){
         if (btnSend){
             btnSend.classList.remove('loading');
             btnSend.removeAttribute('aria-busy');
-            // Recalculate disabled state based on current input content
             btnSend.disabled = !input || input.value.trim().length < 3;
         }
     }
