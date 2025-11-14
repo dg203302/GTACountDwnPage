@@ -4,6 +4,18 @@ export default async function handler(request, context) {
 
     const sql = neon(Deno.env.get("NETLIFY_DATABASE_URL"));
 
+    // Handle CORS preflight (OPTIONS) to allow POST with JSON
+    if (request.method === 'OPTIONS') {
+        return new Response(null, {
+            status: 204,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "POST, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type"
+            }
+        });
+    }
+
     try {
         if (request.method !== 'POST') {
             return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
