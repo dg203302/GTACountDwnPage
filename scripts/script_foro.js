@@ -33,19 +33,6 @@ window.onload = function() {
     cargarMensajes();
     const btn = document.getElementById('btnRefresh');
     if (btn) btn.addEventListener('click', cargarMensajes);
-
-    // Enable/disable Send button based on input content
-    const input = document.getElementById('input_enviar_msg');
-    const btnSend = document.querySelector('.accion_usuario button[data-i18n="forum.send"]');
-    function updateSendState(){
-        if (!input || !btnSend) return;
-        const len = input.value.trim().length;
-        btnSend.disabled = len < 3; // require 3+ chars
-    }
-    if (input) {
-        input.addEventListener('input', updateSendState);
-        updateSendState();
-    }
 }
 
 async function renderizarMensajes(mensajes){
@@ -84,12 +71,8 @@ function formatearFecha(fecha) {
 async function enviarMSG(){
     const btnSend = document.querySelector('.accion_usuario button[data-i18n="forum.send"]');
     const input = document.getElementById('input_enviar_msg');
-    if (!input) return;
-    const text = input.value.trim();
-    if (text.length < 3){
-        alert(lang === 'spanish' ? 'Escribe al menos 3 caracteres' : 'Type at least 3 characters');
-        return;
-    }
+    const lang = (typeof localStorage !== 'undefined' && localStorage.getItem('language') === 'spanish') ? 'spanish' : 'english';
+    if (!input || !input.value.trim()) return;
     try{
         if (btnSend){
             btnSend.classList.add('loading');
@@ -99,7 +82,7 @@ async function enviarMSG(){
         const res = await fetch('/api/enviar_mensaje', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ mensaje_enviado: text })
+            body: JSON.stringify({ mensaje_enviado: input.value.trim() })
         });
         if (!res.ok) throw new Error('Failed');
         input.value = '';
@@ -111,7 +94,7 @@ async function enviarMSG(){
         if (btnSend){
             btnSend.classList.remove('loading');
             btnSend.removeAttribute('aria-busy');
-            btnSend.disabled = !input || input.value.trim().length < 3;
+            btnSend.disabled = false;
         }
     }
 }
