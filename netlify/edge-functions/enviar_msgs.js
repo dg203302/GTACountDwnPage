@@ -1,20 +1,6 @@
 import { neon } from "https://esm.sh/@neondatabase/serverless";
 
 export default async function handler(request, context) {
-    if (request.method === "OPTIONS") {
-        return new Response(null, {
-            status: 204,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type"
-            }
-        });
-    }
-
-    if (request.method !== "POST") {
-        return new Response("Method Not Allowed", { status: 405 });
-    }
 
     const sql = neon(Deno.env.get("NETLIFY_DATABASE_URL"));
 

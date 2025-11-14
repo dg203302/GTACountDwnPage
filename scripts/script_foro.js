@@ -113,7 +113,7 @@ async function enviarMSG(){
         await cargarMensajes();
     } catch (e){
         console.error('Error sending message:', e);
-        alert(lang === 'spanish' ? 'Error al enviar el mensaje' : 'Failed to send message');
+        alert(lang === 'spanish' ? 'Error al enviar el mensaje: ' + e.message : 'Failed to send message: ' + e.message);
     } finally {
         if (btnSend){
             btnSend.classList.remove('loading');
