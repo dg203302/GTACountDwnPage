@@ -1,9 +1,10 @@
 import { neon } from "https://esm.sh/@neondatabase/serverless";
 
 export default async function handler(request) {
-    console.log('METHOD LLEGÓ:', request.method, 'URL:', request.url);
-    
-    const sql = neon(Deno.env.get("NETLIFY_DATABASE_URL") || "postgresql://neondb_owner:npg_yhn1mPvNk8WS@ep-floral-hat-ae9ym9c9-pooler.c-2.us-east-2.aws.neon.tech/neondb?channel_binding=require&sslmode=require");
+
+    //"postgresql://neondb_owner:npg_yhn1mPvNk8WS@ep-floral-hat-ae9ym9c9-pooler.c-2.us-east-2.aws.neon.tech/neondb?channel_binding=require&sslmode=require"
+
+    const sql = neon(Deno.env.get("NETLIFY_DATABASE_URL"));
 
     let body;
     try {
