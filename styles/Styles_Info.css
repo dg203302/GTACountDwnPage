@@ -232,8 +232,9 @@ h2:target, h3:target {
 
 #credits {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
-	flex-direction: center;
+	align-items: center;
 	text-align: center;
 }
 #credits a {
