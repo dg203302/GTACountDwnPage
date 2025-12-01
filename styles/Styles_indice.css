@@ -43,7 +43,7 @@ body {
 	/* Background image with gradient overlay for legibility */
 	background-image:
 		linear-gradient(135deg, var(--overlay-from), var(--overlay-to)),
-		url('../images/77PIBVXLYZCUFFIQ6FRH6CNTSY.avif');
+		url('../images/77PIBVXLYZCUFFIQ6FRH6CNTSY.jpg');
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -192,6 +192,7 @@ h1:nth-of-type(2) {
 /* Credits footer */
 #credits {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	flex-direction: center;
 	text-align: center;

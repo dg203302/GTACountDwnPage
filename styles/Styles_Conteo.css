@@ -124,8 +124,9 @@ h1 {
 
 #credits {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
-	flex-direction: center;
+	align-items: center;
 	text-align: center;
 }
 #credits a {
