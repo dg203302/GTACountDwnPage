@@ -39,14 +39,16 @@
           'home.release': `Grand Theft Auto VI Release Date:<br>${RELEASE_DATE}`,
           'lang.prompt': 'Select Language',
           'lang.es': 'Spanish',
-          'lang.en': 'English'
+          'lang.en': 'English',
+          'RockstarCredits': 'DISCLAIMER: Grand Theft Auto VI is a game developed and published by Rockstar Games. This is an unofficial Website/App.'
         },
         spanish: {
           'home.title': 'App Fan de GTA VI',
           'home.release': `Fecha de lanzamiento de Grand Theft Auto VI:<br>${RELEASE_DATE}`,
           'lang.prompt': 'Seleccione el idioma',
           'lang.es': 'Español',
-          'lang.en': 'Inglés'
+          'lang.en': 'Inglés',
+          'RockstarCredits': 'AVISO: Grand Theft Auto VI es un juego desarrollado y publicado por Rockstar Games. Esta es una página/aplicación no oficial.'
         }
       };
     }
