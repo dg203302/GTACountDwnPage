@@ -159,3 +159,38 @@ h1 {
 	--overlay-a: rgba(255, 255, 255, 0.55);
 	--overlay-b: rgba(246, 243, 255, 0.45);
 }
+
+#boton_info, #boton_foro {
+	position: relative;
+	display: inline-block;
+	padding: 0.6rem 1rem;
+	border-radius: 999px;
+	color: var(--text);
+	text-decoration: none;
+	font-weight: 600;
+	letter-spacing: 0.3px;
+	background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+	border: 1px solid var(--panel-border);
+	backdrop-filter: saturate(120%) blur(6px);
+	box-shadow: var(--shadow);
+	transition: transform 0.15s ease, color 0.15s ease;
+}
+
+#boton_info::before, #boton_foro::before {
+	content: "";
+	position: absolute;
+	inset: -2px;
+	z-index: -1;
+	border-radius: 1000px;
+	background: linear-gradient(90deg, var(--primary-purple), var(--magenta));
+	opacity: 0.6;
+	filter: blur(10px);
+	transition: opacity 0.2s ease;
+}
+
+#boton_info:hover { transform: translateY(-2px); color: #fff; }
+#boton_foro:hover { transform: translateY(-2px); color: #fff; }
+#boton_info:hover::before { opacity: 1; }
+#boton_foro:hover::before { opacity: 1; }
+#boton_info:focus-visible { outline: 3px solid var(--magenta); outline-offset: 3px; }
+#boton_foro:focus-visible { outline: 3px solid var(--magenta); outline-offset: 3px; }
